@@ -15,7 +15,7 @@ function textToJson(rawText, doc) {
   populateChunks(chunks, text, docToUse);
   return chunks.map((chunk, chunkIdx) => ({
     text: chunk.text.trim(),
-    source: doc.pathname,
+    source: doc.pathname || doc.href || '',
     lookup: chunk.section.lookup || '',
     timestamp,
     chunkIdx,

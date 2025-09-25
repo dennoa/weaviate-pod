@@ -1,5 +1,6 @@
 const path = require('path');
 const weaviate = require('weaviate-client');
+const { htmlToJson } = require('./html-to-json');
 const { notepadToJson } = require('./notepad-to-json');
 const { pdfToJson } = require('./pdf-to-json');
 const { wordToJson } = require('./word-to-json');
@@ -90,6 +91,11 @@ const docs = [
     type: 'txt',
     sections: [],
   },
+  {
+    href:'https://www.nccd.edu.au/case-studies/harley-supplementary-cognitive',
+    type: 'html',
+    sections: [],
+  },
 ];
 
 async function loadDocs(client) {
@@ -109,6 +115,8 @@ function getJsonArray(doc) {
   switch(doc.type) {
     case 'docx':
       return wordToJson(doc);
+    case 'html':
+      return htmlToJson(doc);
     case 'pdf':
       return pdfToJson(doc);
     case 'txt':
@@ -133,6 +141,7 @@ async function queryCollection(client) {
     });
     console.log(`\n\nCombined text results for: "${queryText}"`);
     console.log(combinedText);
+    console.log(await htmlToJson(docs[5]))
   } catch (error) {
     console.error('Error querying collection:', error);
   }
