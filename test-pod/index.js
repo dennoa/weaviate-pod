@@ -141,7 +141,6 @@ async function queryCollection(client) {
     });
     console.log(`\n\nCombined text results for: "${queryText}"`);
     console.log(combinedText);
-    console.log(await htmlToJson(docs[5]))
   } catch (error) {
     console.error('Error querying collection:', error);
   }
